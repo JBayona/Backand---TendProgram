@@ -1,0 +1,133 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" media="screen and (min-width: 768px)" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material.min.css" />
+    <!-- endbuild -->
+  </head>
+  <body ng-app="tendProgramApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!-- Add your site or application content here -->
+    <div class="header">
+      <div class="navbar navbar-findcond navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+
+            <a class="navbar-brand" href="#/">Tend Program</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="navbar">
+           <ul class="nav navbar-nav navbar-right">
+                  <li ng-show="session" class="dropdown" ng-class="{'active':activeMenu === '/fifa'}">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                      <i class="mdi-action-search"></i>
+                      Search<span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li>
+                        <a href="#/evo">EVO</a>
+                      </li>
+                      <li>
+                        <a href="#/ac">AC</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li ng-show="session" class="dropdown">
+                    <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="mdi-social-person-outline"></i> {{session.first_name}} {{session.last_name}}<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <!--li><a href="javascript:void(0)" ng-click="passwordReset()">Password reset</a></li-->
+                      <li><a href="javascript:void(0)" ng-click="logout()">Logout</a></li>
+                    </ul>
+                  </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--div class="row" ng-show="resetConfirmation">
+      <div class="alert alert-dismissable alert-success">
+          <button type="button" class="close" data-dismiss="alert">×</button>
+          <p>You will receive an email confirmation shortly</p>
+      </div>
+    </div-->
+
+    <div class="container">
+    <div ng-view=""></div>
+    </div>
+
+    <div class="footer">
+      <div class="container">
+        <p>Prototype created by <a href="https://mx.linkedin.com/in/jorge-alberto-bayona-romo-3299b497" target="_blank">Jorge Bayona</a></p>
+      </div>
+    </div>
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <!-- Backand SDK for Angular -->
+        <script src="//cdn.backand.net/backand/dist/1.8.0/backand.min.js"></script>
+        <script src="scripts/module/login/login.js"></script>
+        <script src="scripts/module/login/controllers/login.js"></script>
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/services/proxy.js"></script>
+        <script src="scripts/module/login/services/session.js"></script>
+        <script src="scripts/module/login/services/login.js"></script>
+        <!-- endbuild -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script> <!--This is add manually -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.js"></script>  <!--This is add manually -->
+</body>
+</html>
