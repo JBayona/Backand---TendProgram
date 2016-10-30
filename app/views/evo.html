@@ -1,0 +1,332 @@
+<div class="well">
+	<div class="row">
+		<table class="table table-hover">
+				<thead>
+		          	<tr>      					          	 
+			            <th>Filter Field</th>					           
+			            <th>Filter Type</th>	
+		            	<th>Value</th>					            
+	          		</tr>
+	        	</thead>
+	        	<tbody>
+	        		<tr>
+	        			<td>
+	        				<select class="form-control select-font-size" ng-model="filter.name">
+                   				<option value="{{filterBy}}" ng-repeat="filterBy in filters">
+									{{filterBy}}
+								</option>
+                 			 </select>
+	        			</td>
+	        			<td>
+	        				<select class="form-control select-font-size" ng-model="filter.type">
+                  				 <option value="{{filterField}}" ng-repeat="filterField in filterByType">
+									{{filterField}}
+								</option>
+                  			</select>
+	        			</td>
+	        			<td>
+	        				<input type="text" class="form-control select-font-size" placeholder="Value" ng-model="filter.value">
+	        			</td>
+	        			<td>
+	        				<a href="javascript:void(0);" class="btn-link" ng-click="addFilter(filter)" ng-hide="item.delete">
+				                <i class="mdi-content-add-circle"></i>
+				            </a>
+	        			</td>
+	        		</tr>
+	        	</tbody>
+			</table>
+	</div>
+	<div class="row">
+		<label ng-show="filter.length > 0">Selected Filters:</label>
+			<table class="table table-hover" ng-show="filter.length > 0">
+				<thead>
+		          	<tr>      					          	 
+			            <th>Filter Field</th>					           
+			            <th>Filter Type</th>	
+		            	<th>Value</th>					            
+	          		</tr>
+	        	</thead>
+	        	<tbody>
+	        		<tr ng-repeat="item in filter"> <!-- filter -->
+	        			<td><span class="select-font-size">{{item.name}}</span></td>
+	        			<td><span class="select-font-size">{{item.type}}<span></td>
+	        			<td><span class="select-font-size">{{item.value}}<span></td>
+	        			<td>
+	        				<a href="javascript:void(0);" class="btn-link" ng-click="" ng-hide="item.delete">
+				                <i class="mdi-action-delete" ng-click="item.delete = true"></i>
+				            </a>
+			             	<span ng-show="item.delete">
+				                <a href="javascript:void(0);" class="btn-link" ng-click="deleteFilter($index)"><i class="mdi-action-done"></i></a>&nbsp;
+				                <a href="javascript:void(0);" class="btn-link" ng-click="item.delete = false"><i class="mdi-action-highlight-remove"></i></a>
+			                </span>
+	        			<td>
+	        		</tr>
+	        	</tbody>
+			</table>
+	</div>
+</div>
+<div class="well scroll">
+	<div class="row">
+		<div class="col-sm-10 col-md-10 text-center">
+			<ul uib-pagination 
+				max-size="10" 
+				total-items="searchPage.totalRows"
+				items-per-page="searchPage.itemsPerPage"
+				ng-model="searchPage.currentPage"
+				class="pagination-sm"
+				boundary-links="true" 
+				ng-change="searchPage.currentPage*searchPage.itemsPerPage">>
+			</ul>
+		</div>
+		<div class="col-sm-1 col-md-1 text-rigth" style="margin: 20px 0;">
+			Page Size:
+		</div>
+		<div clas="col-sm-1 col-md-1 text-right" style="margin: 20px 0;">
+			<select ng-model="searchPage.itemsPerPage" ng-options="o as o for o in searchPage.itemsPerPageOptions"></select>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12">
+			<h4>Results</h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 col-md-12 col-lg-12">
+			<div class="table-responsive" ng-show="!isError">
+				<table class="table table-bordered table-striped">
+						<thead>
+				          	<tr>
+				          		<th>Count</th>			          	 
+					            <th ng-click="reverse=!reverse;order('num',reverse)">#</th>					           
+					            <th ng-click="reverse=!reverse;order('loconum',reverse)">Locomotive</th>	
+				            	<th ng-click="reverse=!reverse;order('fecha',reverse)">Date(d/mm/yy)</th>
+				            	<th ng-click="reverse=!reverse;order('causa',reverse)">Cause</th>
+				            	<th ng-click="reverse=!reverse;order('parte',reverse)">Part</th>
+				            	<th ng-click="reverse=!reverse;order('fe',reverse)">Fe</th>
+				            	<th ng-click="reverse=!reverse;order('cr',reverse)">Cr</th>
+				            	<th ng-click="reverse=!reverse;order('pb',reverse)">Pb</th>
+				            	<th ng-click="reverse=!reverse;order('cu',reverse)">Cu</th>
+				            	<th ng-click="reverse=!reverse;order('sn',reverse)">Sn</th>
+				            	<th ng-click="reverse=!reverse;order('al',reverse)">Al</th>
+				            	<th ng-click="reverse=!reverse;order('ni',reverse)">Ni</th>
+				            	<th ng-click="reverse=!reverse;order('ag',reverse)">Ag</th>
+				            	<th ng-click="reverse=!reverse;order('si',reverse)">Si</th>
+				            	<th ng-click="reverse=!reverse;order('b',reverse)">B</th>
+				            	<th ng-click="reverse=!reverse;order('na',reverse)">Na</th>
+				            	<th ng-click="reverse=!reverse;order('mg',reverse)">Mg</th>
+				            	<th ng-click="reverse=!reverse;order('ca',reverse)">Ca</th>
+				            	<th ng-click="reverse=!reverse;order('ba',reverse)">Ba</th>
+				            	<th ng-click="reverse=!reverse;order('p',reverse)">P</th>
+				            	<th ng-click="reverse=!reverse;order('zn',reverse)">Zn</th>
+				            	<th ng-click="reverse=!reverse;order('mo',reverse)">Mo</th>
+				            	<th ng-click="reverse=!reverse;order('ti',reverse)">Ti</th>
+				            	<th ng-click="reverse=!reverse;order('v',reverse)">V</th>
+				            	<th ng-click="reverse=!reverse;order('mn',reverse)">Mn</th>
+				            	<th ng-click="reverse=!reverse;order('cd',reverse)">Cd</th>
+				            	<th ng-click="reverse=!reverse;order('visc40',reverse)">Visc.40°C</th>
+				            	<th ng-click="reverse=!reverse;order('tbn',reverse)">T.B.N</th>
+				            	<th ng-click="reverse=!reverse;order('tan',reverse)">T.A.N</th>
+				            	<th ng-click="reverse=!reverse;order('dilucion',reverse)">Dilution(%)</th>
+				            	<th ng-click="reverse=!reverse;order('agua_ppm',reverse)">Water(ppm)</th>		
+				            	<th ng-click="reverse=!reverse;order('hollin',reverse)">Hollín(%)</th>
+				            	<th ng-click="reverse=!reverse;order('oxidacion',reverse)">Oxidation(%)</th>
+				            	<th ng-click="reverse=!reverse;order('inhibidor',reverse)">Inhibitor(ppm)</th>
+				            	<th ng-click="reverse=!reverse;order('tratamiento',reverse)">Treatment</th>		
+				            	<th ng-click="reverse=!reverse;order('num_serie_mt',reverse)">Attractor_Engine_Serie_#</th>	            
+			          		</tr>
+			        	</thead>
+			        	<tbody>
+			        		<tr ng-repeat="element in searchPage.totalList | startFrom:(searchPage.currentPage-1)*searchPage.itemsPerPage | limitTo: searchPage.itemsPerPage">
+			        			<td>{{$index+1}}</td>
+			        			<td>{{element.num}}</td>
+			        			<td>{{element.loconum}}</td>
+			        			<td>{{element.fecha}}</td>
+			        			<td>{{element.causa}}</td>
+			        			<td>{{element.parte}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.fe >= 40 && element.parte == 'COMP') || (element.fe >= 30 && element.parte == 'MD') || ((element.fe >= 200) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        							
+			        						   }">{{element.fe}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.cr >= 10 && element.parte == 'MD') ||
+			        							(element.cr >= 10 && element.parte == 'COMP') || 
+			        							((element.cr >= 20) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.cr}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.pb >= 12 && element.parte == 'MD') ||
+			        							(element.pb >= 40 && element.parte == 'COMP') ||
+			        							((element.pb >= 20) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.pb}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.cu >= 15 && element.parte == 'MD') ||
+			        							(element.cu >= 40 && element.parte == 'COMP') || 
+			        							((element.cu >= 250) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.cu}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.sn >= 20 && element.parte == 'MD') || 
+			        							(element.sn >= 40 && element.parte == 'COMP') || 
+			        							((element.sn >= 50) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.sn}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.al >= 10 && element.parte == 'MD') || 
+			        							(element.al >= 10 && element.parte == 'COMP') ||
+			        							((element.al >= 40) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.al}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.ni >= 10 && element.parte == 'MD') ||
+			        							(element.ni >= 10 && element.parte == 'COMP') ||
+			        							((element.ni >= 40) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.ni}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.ag >= 10 && element.parte == 'MD') || 
+			        							(element.ag >= 10 && element.parte == 'COMP') || 
+			        							((element.ag >= 40) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.ag}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.si >= 20 && element.parte == 'MD') ||
+			        							(element.si >= 10 && element.parte == 'COMP') ||
+			        							((element.si >= 100) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.si}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.b >= 5 && element.parte == 'MD') ||
+			        							(element.b >= 20 && element.parte == 'COMP') || 
+			        							((element.b >= 50) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.b}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.na >= 40 && element.parte == 'MD') || 
+			        							(element.na >= 20 && element.parte == 'COMP') ||
+			        							((element.na >= 50) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.na}}</td>
+			        			<td>{{element.mg}}</td>
+			        			<td>{{element.ca}}</td>
+			        			<td>{{element.ba}}</td>
+			        			<td ng-class="{'warning-data': ((element.p <= 500) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.p}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.zn >= 20 && element.parte == 'MD') ||
+			        							((element.zn >= 20) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.zn}}</td>
+			        			<td>{{element.mo}}</td>
+			        			<td>{{element.ti}}</td>
+			        			<td>{{element.v}}</td>
+			        			<td>{{element.mn}}</td>
+			        			<td>{{element.cd}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.visc40 >= 205 && element.parte == 'MD') ||
+			        							(element.visc40 >= 85 && element.parte == 'COMP') ||
+			        							((element.visc40 >= 529) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.visc40}}</td>
+			        			<td ng-class="{
+			        							'warning-data': element.tbn <= 4 && element.parte == 'MD'
+			        						  }">{{element.tbn}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.tan >= 4 && element.parte == 'COMP') ||
+			        							((element.tan >= 4.5) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.tan}}</td>
+			        			<td>{{element.dilucion}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.agua_ppm >= 400 && element.parte == 'COMP') ||
+			        							((element.agua_ppm >= 400) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.agua_ppm}}</td>
+			        			<td ng-class="{
+			        							'warning-data': element.hollin >= 3 && element.parte == 'MD'
+			        						   }">{{element.hollin}}</td>
+			        			<td ng-class="{
+			        							'warning-data': (element.oxidacion >= 15 && element.parte == 'MD') ||
+			        							(element.oxidacion >= 15 && element.parte == 'COMP') || 
+			        							((element.oxidacion >= 15) && (element.parte == 'TOLVA1' || element.parte == 'TOLVA2' || element.parte == 'TOLVA3' ||
+			        											element.parte == 'TOLVA4' || element.parte == 'TOLVA5' || element.parte == 'TOLVA6'))
+			        						   }">{{element.oxidacion}}</td>
+			        			<td>{{element.inhibidor}}</td>
+			        			<td>{{element.tratamiento}}</td>
+			        			<td>{{element.num_serie_mt}}</td>
+			        		</tr>
+			        		<tr>
+			        			<th>Count</th>	
+			        			<th ng-click="reverse=!reverse;order('num',reverse)">#</th>					           
+					            <th ng-click="reverse=!reverse;order('loconum',reverse)">Locomotive</th>	
+				            	<th ng-click="reverse=!reverse;order('fecha',reverse)">Date(d/mm/yy)</th>
+				            	<th ng-click="reverse=!reverse;order('causa',reverse)">Cause</th>
+				            	<th ng-click="reverse=!reverse;order('parte',reverse)">Part</th>
+				            	<th ng-click="reverse=!reverse;order('fe',reverse)">Fe</th>
+				            	<th ng-click="reverse=!reverse;order('cr',reverse)">Cr</th>
+				            	<th ng-click="reverse=!reverse;order('pb',reverse)">Pb</th>
+				            	<th ng-click="reverse=!reverse;order('cu',reverse)">Cu</th>
+				            	<th ng-click="reverse=!reverse;order('sn',reverse)">Sn</th>
+				            	<th ng-click="reverse=!reverse;order('al',reverse)">Al</th>
+				            	<th ng-click="reverse=!reverse;order('ni',reverse)">Ni</th>
+				            	<th ng-click="reverse=!reverse;order('ag',reverse)">Ag</th>
+				            	<th ng-click="reverse=!reverse;order('si',reverse)">Si</th>
+				            	<th ng-click="reverse=!reverse;order('b',reverse)">B</th>
+				            	<th ng-click="reverse=!reverse;order('na',reverse)">Na</th>
+				            	<th ng-click="reverse=!reverse;order('mg',reverse)">Mg</th>
+				            	<th ng-click="reverse=!reverse;order('ca',reverse)">Ca</th>
+				            	<th ng-click="reverse=!reverse;order('ba',reverse)">Ba</th>
+				            	<th ng-click="reverse=!reverse;order('p',reverse)">P</th>
+				            	<th ng-click="reverse=!reverse;order('zn',reverse)">Zn</th>
+				            	<th ng-click="reverse=!reverse;order('mo',reverse)">Mo</th>
+				            	<th ng-click="reverse=!reverse;order('ti',reverse)">Ti</th>
+				            	<th ng-click="reverse=!reverse;order('v',reverse)">V</th>
+				            	<th ng-click="reverse=!reverse;order('mn',reverse)">Mn</th>
+				            	<th ng-click="reverse=!reverse;order('cd',reverse)">Cd</th>
+				            	<th ng-click="reverse=!reverse;order('visc40',reverse)">Visc.40°C</th>
+				            	<th ng-click="reverse=!reverse;order('tbn',reverse)">T.B.N</th>
+				            	<th ng-click="reverse=!reverse;order('tan',reverse)">T.A.N</th>
+				            	<th ng-click="reverse=!reverse;order('dilucion',reverse)">Dilution(%)</th>
+				            	<th ng-click="reverse=!reverse;order('agua_ppm',reverse)">Water(ppm)</th>		
+				            	<th ng-click="reverse=!reverse;order('hollin',reverse)">Hollín(%)</th>
+				            	<th ng-click="reverse=!reverse;order('oxidacion',reverse)">Oxidation(%)</th>
+				            	<th ng-click="reverse=!reverse;order('inhibidor',reverse)">Inhibitor(ppm)</th>
+				            	<th ng-click="reverse=!reverse;order('tratamiento',reverse)">Treatment</th>		
+				            	<th ng-click="reverse=!reverse;order('num_serie_mt',reverse)">Attractor_Engine_Serie_#</th>	   
+			        		</tr>
+			        	</tbody>
+					</table>
+			</div>
+			<div class="col-sm-12 col-md-12 col-lg-12" ng-show="isError">
+				<div class="alert alert-danger">
+					<ul>
+						<li>No results were found.</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-10 col-md-10 text-center">
+			<ul uib-pagination 
+				max-size="10" 
+				total-items="searchPage.totalRows"
+				items-per-page="searchPage.itemsPerPage"
+				ng-model="searchPage.currentPage"
+				class="pagination-sm"
+				boundary-links="true" 
+				ng-change="searchPage.currentPage*searchPage.itemsPerPage">>
+			</ul>
+		</div>
+		<div class="col-sm-1 col-md-1 text-rigth" style="margin: 20px 0;">
+			Page Size:
+		</div>
+		<div clas="col-sm-1 col-md-1 text-right" style="margin: 20px 0;"> <!--Sacamos de donde comenzará cortando el array y limitando en base al drop down -->
+			<select ng-model="searchPage.itemsPerPage" ng-options="o as o for o in searchPage.itemsPerPageOptions"></select>
+		</div>
+		<!--Current Page: {{searchPage.currentPage}}
+		Records: {{searchPage.currentPage*searchPage.itemsPerPage}}-->
+	</div>
+</div>

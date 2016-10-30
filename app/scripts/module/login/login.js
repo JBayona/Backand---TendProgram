@@ -14,9 +14,8 @@ angular
   .config(['$routeProvider','localStorageServiceProvider', function($routeProvider, localStorageServiceProvider){
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main',
+        templateUrl: 'views/evo.html',
+        controller: 'EvoCtrl',
         auth: true
       })
       .when('/login', {
@@ -27,7 +26,6 @@ angular
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
-        controllerAs: 'about',
         auth: true
       })
       .otherwise({

@@ -12,10 +12,10 @@ angular.module('tendProgramApp')
     // AngularJS will instantiate a singleton by calling "new" on this function
     	var restCall = function(method,data,url,params,headers,external){
     		var defer = $q.defer();
-    		/*var reqHeaders = external ? {} : {
-		    'X-Parse-Application-Id': 'AxcIKaTzkxUJhKn0BQqabnpxAB2qy4XWvt8upQ5X',
-			'X-Parse-REST-API-Key': '2BDNBcWYRe6u6uA82VU5qfpDpsIJNjPD1agCne0k',
-		    'Content-Type':'application/json'*/
+    		var reqHeaders = external ? {} : {
+		    //'X-Parse-Application-Id': 'AxcIKaTzkxUJhKn0BQqabnpxAB2qy4XWvt8upQ5X',
+			//'X-Parse-REST-API-Key': '2BDNBcWYRe6u6uA82VU5qfpDpsIJNjPD1agCne0k',
+		    'Content-Type':'application/json'}
 		    var req = {
 			  method: method,
 			  url: url,
